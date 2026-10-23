@@ -32,6 +32,18 @@ export default async function ProjectPage({ params }) {
   const currentIndex = projects.findIndex((p) => p.slug === project.slug);
   const next = projects[(currentIndex + 1) % projects.length];
 
+  const challenges = Array.isArray(project.challenges)
+    ? project.challenges
+    : project.challenges
+      ? [project.challenges]
+      : [];
+
+  const improvements = Array.isArray(project.improvements)
+    ? project.improvements
+    : project.improvements
+      ? [project.improvements]
+      : [];
+
   return (
     <>
       <Navbar />
@@ -130,22 +142,24 @@ export default async function ProjectPage({ params }) {
               <h2 className="font-mono text-sm text-accent-2">
                 # Key Challenges Faced
               </h2>
-              <p className="mt-3 text-sm leading-relaxed text-text-muted">
-                {project.challenges.map((challenge) => (
-                  <li key={challenge}>{challenge}</li>
+
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-muted">
+                {challenges.map((challenge, index) => (
+                  <li key={index}>{challenge}</li>
                 ))}
-              </p>
+              </ul>
             </section>
 
             <section>
               <h2 className="font-mono text-sm text-accent-2">
                 # Potential Future Improvements
               </h2>
-              <p className="mt-3 text-sm leading-relaxed text-text-muted">
-                {project.improvements.map((improve) => (
-                  <li key={improve}>{improve}</li>
+
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-text-muted">
+                {improvements.map((improve, index) => (
+                  <li key={index}>{improve}</li>
                 ))}
-              </p>
+              </ul>
             </section>
           </div>
 
